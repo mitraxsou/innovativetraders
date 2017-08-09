@@ -1,100 +1,8 @@
-<?php
-require 'PHPMailerAutoload.php';
-require 'class.phpmailer.php';
-
-$mail = new PHPMailer();
-$mailInside = new PHPMailer();
-
-/**** Outside mail configuration****/  
-$mail->IsSMTP();   
-$mail->Host = "smtp.example.com";
-$mail->SMTPAuth = true;                
-$mail->SMTPSecure = "ssl";              // sets the prefix to the servier
-$mail->Host = "smtp.zoho.com";        // sets Gmail as the SMTP server
-$mail->Port = 465; 
-
-$mail->Username = "no-reply@interiorradiant.com";  // Gmail username
-$mail->Password = "interiorradiant";      // Gmail password
-
-$mail->CharSet = 'windows-1250';
-$mail->SetFrom ('no-reply@interiorradiant.com', 'Radiant Infrastructure');
-$mail->AddReplyTo("contact@interiorradiant.com","Interior Radiant");
-/****Ends****/
-
-/**** Inside mail configuration****/    
-$mailInside->IsSMTP();  
-$mailInside->Host = "smtp.example.com";  
-$mailInside->SMTPAuth = true;               
-$mailInside->SMTPSecure = "ssl";              // sets the prefix to the servier
-$mailInside->Host = "smtp.zoho.com";        // sets Gmail as the SMTP server
-$mailInside->Port = 465;       
-$mailInside->Username = "contact@innovativetraders.com";  // Gmail username
-$mailInside->Password = "innovativetraders";      // Gmail password
-$mailInside->CharSet = 'windows-1250';
-$mailInside->SetFrom ('contact@innovativetraders.com', 'Radiant Infrastructure');
-$mail->AddReplyTo("contact@innovativetraders.com","Interior Radiant");
-/**Ends**/
-
-if(isset($_REQUEST["submitBtn"])){
-$name=$_REQUEST["inputName"];
-$subject=$_REQUEST["inputSubject"];
-$email=$_REQUEST["inputEmail"];	
-$content=$_REQUEST["inputContent"];
-$mail->Subject = 'Innovative Traders';
-$mail->ContentType = 'text/plain'; 
-$mail->IsHTML(false);
-$mail->Body = 'Thank you, for writing to us. We will get back to you shortly.'."\n\n\n"."Team Innovative Traders"; 
-// you may also use $mail->Body = file_get_contents('your_mail_template.html');
-
-$mail->AddAddress ($email, $name);     
-// you may also use this format $mail->AddAddress ($recipient);
-
-if(!$mail->Send()) 
-{
-        $error_message = "Mailer Error: " . $mail->ErrorInfo;
-        header('Location: error.php');
-} else 
-{
-        $error_message = "Successfully sent!";
-        $mailInside->Subject = 'New Query: '.$subject;
-		$mailInside->ContentType = 'text/plain'; 
-		$mailInside->IsHTML(false);
-		$mailInside->Body = 'Query is :- '."\n\n".$content; 
-// you may also use $mail->Body = file_get_contents('your_mail_template.html');
-
-		$mailInside->AddAddress ('contact@innovativetraders.com', 'Innovative Traders');  
-		if(!$mailInside->Send()){
-				$error_message = "Mailer Error: " . $mailInside->ErrorInfo;
-				//echo $error_message;
-				header('Location: error.php');
-		}
-		else{
-			$error_message = "Successfully sent!";
-			echo $error_message;
-			header('Location: email.php');
-		}
-		
-}
-//header('Location: email.php');
-/*
-$to = "somebody@example.com";
-$toinside="contact@interiorradiant.com";
-$subject = "Radiant Infrastructure";
-$subjectInside="New Query from"+$name;
-$txt = "Thank You, for writing to us. We will get back to you shortly.";
-$headers = "From: no-reply@zoho.com"; 
-
-
-mail($to,$subject,$txt,$headers);
-mail($toinside,$subjectInside,$content,$headers);*/
-}
-else{
-
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Rahul Raj |</title>
+<title>Innovative Traders</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -109,6 +17,7 @@ else{
 <!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->    
+<script>setTimeout(function(){document.location='index.html'},4000);</script> 
 </head>
 <body>
 	<!--header-->
@@ -166,29 +75,11 @@ else{
         	<div class="container">
                 <section>
                 	<div class="row">
-                    	<div class="span4">
-                        	<h2 class="title"><span>Contact Info</span></h2>
-                            <div id="map"><iframe width="100%" height="310" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3684.7018286486223!2d88.36443171466154!3d22.55283963937999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0276fcb8114ac3%3A0x82033725951d900d!2s24%2C+Noor+Ali+Ln%2C+Beniapukur%2C+Kolkata%2C+West+Bengal+700014!5e0!3m2!1sen!2sin!4v1491431527440" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>"></iframe></div>
-                            <p>Innovative Traders<br/>24B, Noor Ali Lane</p>
-                            <p>Phone: +91-8981823838<br/>Email: <a href="mailto:contact@innovativetraders.in">contact@innovativetraders.in</a><br/>Web: <a href="#">www.innovativetraders.in</a></p>                           
-                        </div>
+                    	
                     	<div class="span8">
-                        	<h2 class="title"><span>Get In Touch</span></h2>
-                            <div class="contact_form">  
-                            	<div id="note"></div>
-                                <div id="fields">
-                                    <form method="POST" action="<?php $_PHP_SELF?>" role="form">
-                                        <input class="span7" type="text" name="inputName" id="inputName" value="" placeholder="Name (required)" />
-                                        <input class="span7" type="text" name="inputEmail" id="inputEmail" value="" placeholder="Email (required)" />
-                                        <input class="span7" type="text" name="inputSubject" id="inputSubject" value="" placeholder="Subject" />
-                                        <textarea name="inputContent" id="inputContent" class="span8" placeholder="Message"></textarea>
-                                        <div class="clear"></div>
-                                        <input type="reset" class="btn dark_btn" value="Clear form" />
-                                        <input type="submit" class="btn send_btn" value="Submit" />
-                                        <div class="clear"></div>
-                                    </form>
-                                </div>
-                            </div>                   
+                        	<h2 class="title">
+							<span>OOPS!! Something went wrong. Please try after sometime.</span></h2>
+                                           
                         </div>                	
                 	</div>
                 </section>
@@ -207,7 +98,7 @@ else{
                     </div>
 					
                     <div class="span3">
-                    	<h2 class="title">Get in touch!</h2>
+                    	
                         <!-- <form action="#" method="post">
                         	<input class="span3" type="text" name="inputName" id="inputName" value="Name" onFocus="if (this.value == 'Name') this.value = '';" onBlur="if (this.value == '') this.value = 'Name';" />
                             <input class="span3" type="text" name="inputEmail" id="inputEmail" value="Email" onFocus="if (this.value == 'Email') this.value = '';" onBlur="if (this.value == '') this.value = 'Email';" />
@@ -299,6 +190,3 @@ else{
     
 </body>
 </html>
-<?php
-}
-?>

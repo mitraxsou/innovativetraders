@@ -6,33 +6,33 @@ $mail = new PHPMailer();
 $mailInside = new PHPMailer();
 
 /**** Outside mail configuration****/  
-$mail->IsSMTP();   
+$mail->IsSMTP();  
+//$mail->SMTPDebug = 2; 
 $mail->Host = "smtp.example.com";
 $mail->SMTPAuth = true;                
 $mail->SMTPSecure = "ssl";              // sets the prefix to the servier
 $mail->Host = "smtp.zoho.com";        // sets Gmail as the SMTP server
 $mail->Port = 465; 
+ 
+$mail->Username = "no-reply@innovativetraders.in";  // Gmail username
+$mail->Password = "innovativetraders";      // Gmail password
 
-$mail->Username = "no-reply@interiorradiant.com";  // Gmail username
-$mail->Password = "interiorradiant";      // Gmail password
-
-$mail->CharSet = 'windows-1250';
-$mail->SetFrom ('no-reply@interiorradiant.com', 'Radiant Infrastructure');
-$mail->AddReplyTo("contact@interiorradiant.com","Interior Radiant");
+$mail->SetFrom ('no-reply@innovativetraders.in', 'Innovative Traders');
+//$mail->AddReplyTo("contact@innovativetraders.in","Innovative Traders");
 /****Ends****/
 
 /**** Inside mail configuration****/    
-$mailInside->IsSMTP();  
-$mailInside->Host = "smtp.example.com";  
+$mailInside->IsSMTP(); 
+//$mailInside->SMTPDebug = 2; 
 $mailInside->SMTPAuth = true;               
 $mailInside->SMTPSecure = "ssl";              // sets the prefix to the servier
 $mailInside->Host = "smtp.zoho.com";        // sets Gmail as the SMTP server
 $mailInside->Port = 465;       
-$mailInside->Username = "contact@innovativetraders.com";  // Gmail username
+$mailInside->Username = "no-reply@innovativetraders.in";  // Gmail username
 $mailInside->Password = "innovativetraders";      // Gmail password
-$mailInside->CharSet = 'windows-1250';
-$mailInside->SetFrom ('contact@innovativetraders.com', 'Radiant Infrastructure');
-$mail->AddReplyTo("contact@innovativetraders.com","Interior Radiant");
+
+$mailInside->SetFrom ('no-reply@innovativetraders.in', 'Innovative Traders');
+//$mail->AddReplyTo("contact@innovativetraders.in","Innovative Traders");
 /**Ends**/
 
 if(isset($_REQUEST["submitBtn"])){
@@ -43,7 +43,9 @@ $content=$_REQUEST["inputContent"];
 $mail->Subject = 'Innovative Traders';
 $mail->ContentType = 'text/plain'; 
 $mail->IsHTML(false);
-$mail->Body = 'Thank you, for writing to us. We will get back to you shortly.'."\n\n\n"."Team Innovative Traders"; 
+$mail->Body =  'Hi '.$name."!"."\n".'Thank you, for writing to us. We will get back to you shortly.'."\n\n\n"."Team Innovative Traders"
+				."\n"."Address- 24B, Noor Ali Lane, Kolkata- 700014 "."\n"."Phone- +91-8981823838"."\n"."Email- contact@innovativetraders.in";
+
 // you may also use $mail->Body = file_get_contents('your_mail_template.html');
 
 $mail->AddAddress ($email, $name);     
@@ -52,17 +54,18 @@ $mail->AddAddress ($email, $name);
 if(!$mail->Send()) 
 {
         $error_message = "Mailer Error: " . $mail->ErrorInfo;
+		//echo $error_message;
         header('Location: error.php');
 } else 
 {
         $error_message = "Successfully sent!";
-        $mailInside->Subject = 'New Query: '.$subject;
+         $mailInside->Subject = 'New Query Received from our website: '.$subject;
 		$mailInside->ContentType = 'text/plain'; 
 		$mailInside->IsHTML(false);
-		$mailInside->Body = 'Query is :- '."\n\n".$content; 
+		$mailInside->Body = 'You have a new Query!!'."\n\n"."Person Name : ".$name."\n\n"."Query is : ".$content; 
 // you may also use $mail->Body = file_get_contents('your_mail_template.html');
 
-		$mailInside->AddAddress ('contact@innovativetraders.com', 'Innovative Traders');  
+		$mailInside->AddAddress ('contact@innovativetraders.in', 'Innovative Traders');  
 		if(!$mailInside->Send()){
 				$error_message = "Mailer Error: " . $mailInside->ErrorInfo;
 				//echo $error_message;
@@ -70,7 +73,7 @@ if(!$mail->Send())
 		}
 		else{
 			$error_message = "Successfully sent!";
-			echo $error_message;
+			//echo $error_message;
 			header('Location: email.php');
 		}
 		
@@ -94,7 +97,7 @@ else{
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Rahul Raj |</title>
+<title>Innovative Traders</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -184,7 +187,7 @@ else{
                                         <textarea name="inputContent" id="inputContent" class="span8" placeholder="Message"></textarea>
                                         <div class="clear"></div>
                                         <input type="reset" class="btn dark_btn" value="Clear form" />
-                                        <input type="submit" class="btn send_btn" value="Submit" />
+                                         <input type="submit" class="btn send_btn" value="Send" name="submitBtn" id="submitBtn" />
                                         <div class="clear"></div>
                                     </form>
                                 </div>
@@ -207,7 +210,7 @@ else{
                     </div>
 					
                     <div class="span3">
-                    	<h2 class="title">Get in touch!</h2>
+                    	
                         <!-- <form action="#" method="post">
                         	<input class="span3" type="text" name="inputName" id="inputName" value="Name" onFocus="if (this.value == 'Name') this.value = '';" onBlur="if (this.value == '') this.value = 'Name';" />
                             <input class="span3" type="text" name="inputEmail" id="inputEmail" value="Email" onFocus="if (this.value == 'Email') this.value = '';" onBlur="if (this.value == '') this.value = 'Email';" />
