@@ -133,19 +133,18 @@ else{
                 <div class="container">
                     <div class="row">
                         <div class="span4">
-                            <div class="logo"><a href="index.html"><img src="img/logo.jpg" alt="" /></a></div>                        
+                            <div class="logo"><a href="index.html"><img src="img/logo.jpg" alt="innovativetraders.in" /></a></div>                        
                         </div>
-                        <div class="span8">
-                            
+                        
                             <div class="clear"></div>
                             <nav id="main_menu">
                                 <div class="menu_wrap">
                                     <ul class="nav sf-menu">
                                       <li><a href="index.html">Home</a></li>
-                                      <li class="current"><a href="about.html">About</a></li>
-                                      
-                                      <li class="sub-menu"><a href="portfolio_3columns.html">Designs</a>
-                                           
+                                      <li><a href="about.html">About</a></li>
+                                     
+                                      <li class="sub-menu current"><a href="portfolio_3columns.html">Catalog</a>
+                                          
                                       </li>                                  
                                      
                                       <li><a href="contacts.php">Contacts</a></li>
@@ -158,8 +157,7 @@ else{
              </div>
         </div>    
     </div>
-    
-    <!--//header-->    
+    <!--//header--> 
         
     <!--page_container-->
     <div class="page_container">
@@ -228,6 +226,7 @@ else{
         
             
             <div class="fb-like" data-href="https://www.facebook.com/innovativetraders563" data-width="200" data-layout="standard" data-action="like" data-size="large" data-show-faces="true" data-share="true"></div>
+            </div>
         
                                 <!-- 
                                 <div class="follow_us">
@@ -247,7 +246,7 @@ else{
                                     <ul>
                                         <li><a href="index.html" class="current">Home</a></li>
                                         <li><a href="about.html">About</a></li>
-                                        <li><a href="portfolio_3columns.html">Designs</a></li>
+                                        <li><a href="portfolio_3columns.html">Catalog</a></li>
                                         <li><a href="contacts.php">Contacts</a></li>
                                     </ul>
                                 </div>
