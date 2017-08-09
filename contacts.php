@@ -268,6 +268,10 @@ else{
                                         <li><a href="contacts.php">Contacts</a></li>
                                     </ul>
                                 </div>
+                                <div class="foot_menu">
+                                    <br>
+                                    <br>
+                                </div>
                             </div>                            
                         </div>
                     </div>  
