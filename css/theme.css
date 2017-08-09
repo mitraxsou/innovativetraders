@@ -569,6 +569,14 @@ ul.tweets li {
 	text-align:right;
 	padding-top:15px;
 }
+
+.foot_fb{
+	width:200px;
+	height:17px;
+	padding:5px 9px;
+	border:1px #393939 solid !important;
+	margin:0 0 10px 0;
+}
 .foot_right_block .fright {margin-left:20px;
 }
 
@@ -607,8 +615,10 @@ ul.tweets li {
 	text-decoration:none;
 }
 
-#footer .follow_us {padding:4px 0 10px 0; 
+#footer .follow_us {padding:4px 0 10px 20px; 
 }
+
+
 #footer .follow_us ul li {
 	padding:0 !important;
 	margin:0 0 0 10px !important;
